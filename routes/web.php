@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('main');
 });
 
 Route::get('/login-admin', function () {
     return view('loginAdmin');
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/main', function () {
+    return view('main');
 });
+
+Route::get('/students/add', function () {
+    return view('students.formAdd');
+});
+
+Route::resource('students', StudentsController::class);

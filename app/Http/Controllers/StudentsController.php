@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Students;
 use App\Http\Requests\StoreStudentsRequest;
 use App\Http\Requests\UpdateStudentsRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class StudentsController extends Controller
 {
@@ -13,23 +15,29 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        //
+        return view('students.data')->with([
+            'students' => Students::all()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreStudentsRequest $request)
     {
-        //
+        $validate = $request->validated();
+
+        $students = new Students;
+        $students->idstudents = $request->txtid;
+        $students->name = $request->txtfullname;
+        $students->gender = $request->txtgender;
+        $students->address = $request->txtaddress;
+        $students->email = $request->txtemail;
+        $students->phone = $request->txtphone;
+        $students->save();
+
+        return redirect('students')->with('msg', 'Data Berhasil Ditambahkan');
     }
 
     /**
