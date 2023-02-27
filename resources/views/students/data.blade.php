@@ -26,7 +26,7 @@
                             <th class="text-center">Address</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Phone</th>
-                            <th class="text-center">#</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,10 +35,15 @@
                                 <th>{{ $loop->iteration }}</th>
                                 <th>{{ $row->idstudents }}</th>
                                 <th>{{ $row->name }}</th>
-                                <th>{{ ($row->gender == 'M') ? 'Male' : 'Female' }}</th>
-                                <th>{{ $row->address }}</th>
-                                <th>{{ $row->email }}</th>
-                                <th>{{ $row->phone }}</th>
+                                <td>{{ ($row->gender == 'M') ? 'Male' : 'Female' }}</td>
+                                <td>{{ $row->address }}</td>
+                                <td>{{ $row->email }}</td>
+                                <td>{{ $row->phone }}</td>
+                                <td>
+                                    <button onclick="window.location='{{ url('students/'.$row->idstudents) }}'" type="button" class="btn btn-sm btn-warning" title="edit data">
+                                        <i class="fa fa-edit p-0"></i>
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

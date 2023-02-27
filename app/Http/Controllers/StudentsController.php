@@ -43,9 +43,17 @@ class StudentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Students $students)
+    public function show(Students $students, $idstudents)
     {
-        //
+        $data = $students->find($idstudents);
+        return view('students.formEdit')->with([
+            'txtid' => $data->idstudents,
+            'txtfullname' => $data->name,
+            'txtgender' => $data->gender,
+            'txtaddress' => $data->address,
+            'txtemail' => $data->email,
+            'txtphone' => $data->phone
+        ]);
     }
 
     /**
@@ -59,9 +67,18 @@ class StudentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentsRequest $request, Students $students)
+    public function update(UpdateStudentsRequest $request, Students $students, $idstudents)
     {
-        //
+        $data = $students->find($idstudents);
+        $data->idstudents = $request->txtid;
+        $data->name = $request->txtfullname;
+        $data->gender = $request->txtgender;
+        $data->address = $request->txtaddress;
+        $data->email = $request->txtemail;
+        $data->phone = $request->txtphone;
+        $data->save();
+
+        return redirect('students')->with('msg', 'Data Dengan Nama'.$data->name.'Berhasil Diubah');
     }
 
     /**
